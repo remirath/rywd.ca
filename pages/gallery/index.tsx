@@ -1,7 +1,3 @@
-// pages/index.tsx (Pages Router)  
-// Cleaned‑up replica of zoch.dev front page – no debug colours, simple centering.  
-// TailwindCSS utilities only.  
-
 import React from "react";
 import Link from 'next/link';
 
@@ -19,55 +15,10 @@ export default function Home() {
           rywd.ca
         </Link>
       </header>
-
-      {/* ===================== Terminal body ================= */}
-      <article className="w-full max-w-xl px-4 py-12 md:py-24 font-medium">
-        {/* whoami */}
-        <Prompt command=" whoami" />
-        <Line label="User" value="Ryan" icon="👤" />
-        <Line
-          label="About"
-          value={
-            <>
-              An undergrad electrical engineering student from Newmarket, Ontario
-            </>
-          }
-          icon="📰"
-        />
-        <Line
-          label="Stack(s)"
-          value="JavaScript | TypeScript | Next.js | React | TailwindCSS | CSS | Python | Django "
-          icon="📚"
-        />
-
-        {/* links */}
-        <Gap />
-        <Prompt command=" ls links/" />
-        <div className="font-semibold grid grid-cols-3 gap-20 mt-1">
-          <DirLink href="/gallery" label="gallery/" />
-          <DirLink href="/projects" label="projects/" />
-          <DirLink href="/writings" label="writings/" />
-        </div>
-
-        {/* recent-writes */}
-        <Gap />
-        <Prompt command=" ls -a writings/" />
-        <ListItem label="" sub="sub" />
-        <ListItem label="" sub="sub" />
-
-        {/* socials */}
-        <Gap />
-        <Prompt command=" cat socials.md" />
-        <ul className="pl-4 list-disc">
-          <Social href="https://github.com/remirath" label="GitHub" colour="text-zinc-800"/>
-          <Social href="https://discord.gg/htjwwnq" label="Discord" colour="text-blue-600"/>
-        </ul>
-      </article>
     </main>
   );
 }
 
-/* ------------------------------------------------------- */
 function Prompt({ command }: { command: string }) {
   return (
     <p>
@@ -102,9 +53,9 @@ function Line({ label, value, icon }: { label: string; value: React.ReactNode; i
 function DirLink({ href, label }: { href: string; label: string }) {
   return (
     <p>
-      <a href={href} className="underline font-semibold text-sky-600 hover:text-sky-600">
+      <Link href={href} className="underline font-semibold text-sky-600 hover:text-sky-600">
         {label}
-      </a>
+      </Link>
     </p>
   );
 }
@@ -156,8 +107,3 @@ function Social({
 function Gap() {
   return <div className="h-18" />;
 }
-
-/* Utility class – slow spin */
-// Add in globals.css:
-// @keyframes spin-slow { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) } }
-// .animate-spin-slow { animation: spin-slow 12s linear infinite }
