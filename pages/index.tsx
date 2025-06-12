@@ -61,6 +61,7 @@ export default function Home() {
         <ul className="pl-4 list-disc">
           <Social href="https://github.com/remirath" label="GitHub" colour="text-zinc-800"/>
           <Social href="https://discord.gg/htjwwnq" label="Discord" colour="text-blue-600"/>
+          <Social href="https://www.linkedin.com/in/ryan-wood-59410a332/" label="LinkedIn" colour="text-sky-600"/>
         </ul>
       </article>
     </main>
