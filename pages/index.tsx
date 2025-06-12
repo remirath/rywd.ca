@@ -129,7 +129,7 @@ function Social({ href, label }: { href: string; label: string }) {
 }
 
 function Gap() {
-  return <div className="h-8" />;
+  return <div className="h-18" />;
 }
 
 /* Utility class – slow spin */
