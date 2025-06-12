@@ -3,6 +3,7 @@
 // TailwindCSS utilities only.  
 
 import React from "react";
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -11,12 +12,12 @@ export default function Home() {
 
       {/* ===================== Top link ===================== */}
       <header className="pt-6 md:pt-12">
-        <a
+        <Link
           href="/"
           className="text-lg md:text-xl font-medium underline decoration-2 underline-offset-4 hover:text-zinc-900"
         >
           rywd.ca
-        </a>
+        </Link>
       </header>
 
       {/* ===================== Terminal body ================= */}
@@ -29,8 +30,6 @@ export default function Home() {
           value={
             <>
               An undergrad electrical engineering student from Newmarket, Ontario
-              <a>
-              </a>
             </>
           }
           icon="📰"
