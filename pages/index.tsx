@@ -1,115 +1,139 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+// pages/index.tsx (Pages Router)  
+// Cleaned‑up replica of zoch.dev front page – no debug colours, simple centering.  
+// TailwindCSS utilities only.  
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import React from "react";
 
 export default function Home() {
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <main className="relative min-h-screen bg-[#feffe4] font-medium text-[15px] leading-tight text-zinc-900 select-none flex flex-col items-center">
+      {/* decorative star in the corner */}
+
+      {/* ===================== Top link ===================== */}
+      <header className="pt-6 md:pt-12">
+        <a
+          href="/"
+          className="text-lg md:text-xl font-medium underline decoration-2 underline-offset-4 hover:text-zinc-900"
+        >
+          rywd.ca
+        </a>
+      </header>
+
+      {/* ===================== Terminal body ================= */}
+      <article className="w-full max-w-xl px-4 py-12 md:py-24">
+        {/* whoami */}
+        <Prompt command=" whoami" />
+        <Line label="User" value="Ryan" icon="👤" />
+        <Line
+          label="About"
+          value={
+            <>
+              An undergrad electrical engineering student from Newmarket, Ontario
+              <a>
+              </a>
+            </>
+          }
+          icon="📰"
         />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              pages/index.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <Line
+          label="Stack(s)"
+          value="JavaScript | TypeScript | Next.js | React | TailwindCSS | CSS | Python | Django "
+          icon="📚"
+        />
+
+        {/* links */}
+        <Gap />
+        <Prompt command=" ls links/" />
+        <div className="grid grid-cols-3 gap-2 mt-0.5">
+          <DirLink href="/gallery" label="gallery/" />
+          <DirLink href="/projects" label="projects/" />
+          <DirLink href="/writings" label="writings/" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        {/* recent-writes */}
+        <Gap />
+        <Prompt command=" ls -a writings/" />
+        <ListItem label="" sub="sub" />
+        <ListItem label="" sub="sub" />
+
+        {/* socials */}
+        <Gap />
+        <Prompt command=" cat socials.md" />
+        <ul className="pl-4 list-disc text-sky-700">
+          <Social href="https://github.com/remirath" label="GitHub" />
+          <Social href="https://twitter.com/USERNAME" label="Twitter" />
+          <Social href="https://discord.gg/INVITE" label="Discord" />
+        </ul>
+      </article>
+    </main>
   );
 }
+
+/* ------------------------------------------------------- */
+function Prompt({ command }: { command: string }) {
+  return (
+    <p>
+      <strong className="text-green-800">&lt;ryan</strong>
+      @
+      <strong className="text-green-800">rywd.ca&gt;</strong>
+      :~
+      <span className="text-yellow-600">$</span> 
+      <strong className="inline font-normal">{command}</strong>
+    </p>
+  );
+}
+
+function Line({ label, value, icon }: { label: string; value: React.ReactNode; icon?: string }) {
+  // Assign a different colour per specific label
+  const colour =
+    label === "User"
+      ? "text-red-500"
+      : label === "About"
+      ? "text-green-600"
+      : label.toLowerCase().includes("stack")
+      ? "text-blue-600"
+      : "text-purple-600";
+
+  return (
+    <p>
+      <span className={`${colour} font-semibold`}>{icon && `${icon} `}{label}:</span> {value}
+    </p>
+  );
+}
+
+function DirLink({ href, label }: { href: string; label: string }) {
+  return (
+    <p>
+      <a href={href} className="underline font-medium text-sky-800 hover:text-sky-800">
+        {label}
+      </a>
+    </p>
+  );
+}
+
+function ListItem({ label, sub }: { label: string; sub?: string }) {
+  return (
+    <p>
+      {label} {sub && <span className="text-slate-500">({sub})</span>}
+    </p>
+  );
+}
+
+function Social({ href, label }: { href: string; label: string }) {
+  return (
+    <li>
+      <a href={href} target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-600">
+        <span className="text-zinc-900">[</span> {label} <span className="text-zinc-900">]</span>
+      </a>
+    </li>
+  );
+}
+
+function Gap() {
+  return <div className="h-8" />;
+}
+
+/* Utility class – slow spin */
+// Add in globals.css:
+// @keyframes spin-slow { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) } }
+// .animate-spin-slow { animation: spin-slow 12s linear infinite }
