@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         {/* point to your Next.js app’s own favicon */}
-        <link rel="icon" href="/favicon-next.ico" />
+        <link rel="icon" href="/public/favicon-next.ico" />
       </Head>
       <body className="antialiased">
         <Main />
