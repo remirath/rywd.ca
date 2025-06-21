@@ -1,11 +1,17 @@
 import React from "react";
 import Link from 'next/link';
+import Head from 'next/head';
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-yellow-50 font-medium text-[18px] leading-tight text-zinc-900 select-text flex flex-col items-center">
-      {/* decorative star in the corner */}
+    <>
 
+    <Head>
+      <title>the archives | rywd.ca</title>
+      <meta name="description" content="Complete archives. Frequently updated" />
+    </Head>
+
+    <main className="relative min-h-screen bg-yellow-50 font-medium text-[18px] leading-tight text-zinc-900 select-text flex flex-col items-center">
       {/* ===================== Top link ===================== */}
       <header className="pt-6 md:pt-12">
         <Link
@@ -16,6 +22,7 @@ export default function Home() {
         </Link>
       </header>
     </main>
+    </>
   );
 }
 

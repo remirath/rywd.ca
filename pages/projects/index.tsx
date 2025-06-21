@@ -1,109 +1,151 @@
+// pages/projects.tsx (Pages Router)
+// Cleaned‑up list of projects – TailwindCSS utilities only, responsive layout with image previews.
+
 import React from "react";
-import Link from 'next/link';
+import Link from "next/link";
+import Image from 'next/image';
+import Head from 'next/head';
+import { JetBrains_Mono } from 'next/font/google';
 
-export default function Home() {
+const customFont = JetBrains_Mono({
+    subsets: ['latin'],
+    weight: 'variable',
+});
+
+export default function Projects() {
   return (
-    <main className="relative min-h-screen bg-yellow-50 font-medium text-[18px] leading-tight text-zinc-900 select-text flex flex-col items-center">
-      {/* decorative star in the corner */}
+    <>
 
-      {/* ===================== Top link ===================== */}
-      <header className="pt-6 md:pt-12">
-        <Link
-          href="/"
-          className="text-lg md:text-xl font-medium underline decoration-2 underline-offset-4 hover:text-zinc-900"
-        >
-          rywd.ca
-        </Link>
+    <Head>
+      <title>projects | rywd.ca</title>
+      <meta name="description" content="All my personal work that's worth noting" />
+    </Head>
+
+    <main className={`${customFont.className} relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-800 select-text flex flex-col items-center`}>
+      {/* ===================== Header ===================== */}
+      <header className="sticky w-full max-w-xl py-12 font-medium">
+        <div className="w-full max-w-xl px-4 py-12 font-medium">
+          <Link
+            href="/"
+            className="group text-lg md:text-xl font-medium underline decoration-2 underline-offset-3 hover:text-stone-500"
+          >
+            rywd.ca
+          <span className="inline-block opacity-0 group-hover:opacity-25 ml-2">&#40;</span>
+          <span className="inline-block opacity-0 group-hover:opacity-50">
+          cd
+          </span>
+          <span className="inline-block opacity-0 group-hover:opacity-15">&#41;</span>
+
+          </Link>
+        </div>
       </header>
+
+      {/* ===================== Projects List ===================== */}
+      <article className="w-full max-w-xl px-4 py-12 md:py-24 font-medium">
+        <Prompt command=' ls'/>
+        {projects.map((project) => (
+          <ProjectCard key={project.title} project={project} />
+        ))}
+      </article>
     </main>
+    </>
   );
 }
 
-// function Prompt({ command }: { command: string }) {
-//   return (
-//     <p>
-//       <strong className="text-green-800">&lt;ryan</strong>
-//       @
-//       <strong className="text-green-800">rywd.ca&gt;</strong>
-//       :~
-//       <span className="text-yellow-600">$</span> 
-//       <strong className="inline font-normal">{command}</strong>
-//     </p>
-//   );
-// }
+/* ------------------------------------------------------- */
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  image: string;
+  href?: string;
+}
 
-// function Line({ label, value, icon }: { label: string; value: React.ReactNode; icon?: string }) {
-//   // Assign a different colour per specific label
-//   const colour =
-//     label === "User"
-//       ? "text-red-500"
-//       : label === "About"
-//       ? "text-green-600"
-//       : label.toLowerCase().includes("stack")
-//       ? "text-blue-600"
-//       : "text-purple-600";
+const projects: Project[] = [
+  {
+    title: 'Hockeytree',
+    description:
+      'An app to rank NHL teams based off performance using statistical techniques and machine learning.',
+    tags: ['Machine Learning', 'Analytics', 'NHL'],
+    image: '/images/hockeytree.png',
+    href: '/projects/hockeytree',
+  },
+  {
+    title: 'DBR Laser Model',
+    description:
+      'MATLAB simulation software which models a 1D optical waveguide and DBR laser using grating patterns.',
+    tags: ['Modelling', 'Simulation', 'Electromagnetics'],
+    image: '/images/matlab.png',
+    href: 'https://github.com/remirath/4700PAS',
+  },
+  {
+    title: 'Undergrad Resources',
+    description:
+      'A comprehensive portfolio of relevant work done during my undergraduate degree.',
+    tags: ['Hardware', 'Software', 'Lab', 'Research'],
+    image: '/images/carleton.png',
+    href: '/projects/school',
+  },
+];
 
-//   return (
-//     <p>
-//       <span className={`${colour} font-semibold`}>{icon && `${icon} `}{label}:</span> {value}
-//     </p>
-//   );
-// }
+/* ------------------------------------------------------- */
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <div className="flex bg-yellow-50 rounded-lg overflow-hidden">
+      {/* Text area */}
+      <div className="flex flex-col justify-between flex-1 min-w-0">
+        <div>
+          <h2 className="text-xl font-semibold mb-1 text-zinc-900 hover:opacity-60">
+            <Link
+          href={project.href || '#'}>
+          
+          {project.title}
+        </Link>
+            </h2>
+          <p className="font-normal text-zinc-700 mb-3">{project.description}</p>
+        </div>
+        <Tags tags={project.tags} />
+      
+      </div>
 
-// function DirLink({ href, label }: { href: string; label: string }) {
-//   return (
-//     <p>
-//       <Link href={href} className="underline font-semibold text-sky-600 hover:text-sky-600">
-//         {label}
-//       </Link>
-//     </p>
-//   );
-// }
+      {/* Image preview */}
+      <div className="relative h-48 w-48 flex-shrink-0">
+        <Link href={project.href || '#'}>
+          <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover"/>
+        </Link>
+      </div>
+    </div>
+  );
+}
 
-// function ListItem({ label, sub }: { label: string; sub?: string }) {
-//   return (
-//     <p>
-//       {label} {sub && <span className="text-slate-500">({sub})</span>}
-//     </p>
-//   );
-// }
+function Tags({ tags }: { tags: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-2 mb-24">
+      {tags.map((tag) => (
+        <span
+          key={tag}
+          className="bg-yellow-100 text-yellow-800 text-sm font-medium px-2 py-1 rounded-full"
+        >
+          {tag}
+        </span>
+      ))}
+    </div>
+  );
+}
 
-// function Social({
-//   href,
-//   label,
-//   colour,   // e.g. "text-zinc-800"
-// }: {
-//   href: string
-//   label: string
-//   colour: string
-// }) {
-//   return (
-//     <li
-//       // make the bullet a bit larger & translucent, and inherit the text colour
-//       className={`marker:text-xl marker:opacity-50 ${colour}`}
-//     >
-//       <a
-//         href={href}
-//         target="_blank"
-//         rel="noopener noreferrer"
-//         // turn this <a> into a "group" so its children can react to hover
-//         className={`group underline font-bold ${colour} hover:${colour}`}
-//       >
-//         {/* your normal brackets */}
-//         <span className="opacity-50">[</span>
-//           {label}
-//         <span className="opacity-50">]</span>
-
-//         {/* the URL, hidden by default (opacity-0), shown on hover (opacity-50) */}
-//         <span className="opacity-0 group-hover:opacity-25 ml-2">&#40;</span>
-//         <span className="opacity-0 group-hover:opacity-50">
-//         {href}
-//         </span>
-//         <span className="opacity-0 group-hover:opacity-15">&#41;</span>
-//       </a>
-//     </li>
-//   )
-// }
-// function Gap() {
-//   return <div className="h-18" />;
-// }
+function Prompt({ command }: { command: string }) {
+  return (
+    <p>
+      <strong className="text-green-800">ryan</strong>
+      @
+      <strong className="text-green-800">rywd.ca</strong>
+      :~/projects
+      <span className="text-yellow-600">$</span> 
+      <strong className="inline font-normal">{command}</strong>
+    </p>
+  );
+}

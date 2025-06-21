@@ -27,6 +27,11 @@
   }
 }
 
+.wavy-underline {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

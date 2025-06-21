@@ -4,24 +4,44 @@
 
 import React from "react";
 import Link from 'next/link';
+import Head from 'next/head';
+import { JetBrains_Mono } from 'next/font/google';
+
+const customFont = JetBrains_Mono({
+    subsets: ['latin'],
+    weight: 'variable',
+});
 
 export default function Home() {
+
   return (
-    <main className="relative min-h-screen bg-yellow-50 font-medium text-[18px] leading-tight text-zinc-900 select-text flex flex-col items-center">
+    <>
+    <Head>
+      <title>rywd.ca</title>
+      <meta name="description" content="Personal homepage of Ryan Wood – Electrical Engineering student." />
+    </Head> 
+
+    <main className={`${customFont.className} relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-900 select-text flex flex-col items-center`}>
       {/* decorative star in the corner */}
 
       {/* ===================== Top link ===================== */}
-      <header className="pt-6 md:pt-12">
+      <header className="w-full max-w-xl px-4 py-12 md:py-24 font-medium">
         <Link
-          href="/"
-          className="text-lg md:text-xl font-medium underline decoration-2 underline-offset-4 hover:text-zinc-900"
-        >
-          rywd.ca
-        </Link>
+            href="/"
+            className="group text-lg md:text-xl font-medium underline decoration-2 underline-offset-3 hover:text-stone-500"
+          >
+            rywd.ca
+          <span className="inline-block opacity-0 group-hover:opacity-25 ml-2">&#40;</span>
+          <span className="inline-block opacity-0 group-hover:opacity-50">
+          cd
+          </span>
+          <span className="inline-block opacity-0 group-hover:opacity-15">&#41;</span>
+
+          </Link>
       </header>
 
       {/* ===================== Terminal body ================= */}
-      <article className="w-full max-w-xl px-4 py-12 md:py-24 font-medium">
+      <article className="w-full max-w-xl px-4 py-12 md:py-24 font-normal">
         {/* whoami */}
         <Prompt command=" whoami" />
         <Line label="User" value="Ryan" icon="👤" />
@@ -46,7 +66,7 @@ export default function Home() {
         <div className="font-semibold grid grid-cols-3 gap-20 mt-1">
           <DirLink href="/gallery" label="gallery/" />
           <DirLink href="/projects" label="projects/" />
-          <DirLink href="/writings" label="writings/" />
+          <DirLink href="/archives" label="archives/" />
         </div>
 
         {/* recent-writes */}
@@ -65,6 +85,7 @@ export default function Home() {
         </ul>
       </article>
     </main>
+    </>
   );
 }
 
@@ -72,9 +93,9 @@ export default function Home() {
 function Prompt({ command }: { command: string }) {
   return (
     <p>
-      <strong className="text-green-800">&lt;ryan</strong>
+      <strong className="text-green-800">ryan</strong>
       @
-      <strong className="text-green-800">rywd.ca&gt;</strong>
+      <strong className="text-green-800">rywd.ca</strong>
       :~
       <span className="text-yellow-600">$</span> 
       <strong className="inline font-normal">{command}</strong>
@@ -137,16 +158,14 @@ function Social({
         target="_blank"
         rel="noopener noreferrer"
         // turn this <a> into a "group" so its children can react to hover
-        className={`group underline font-bold ${colour} hover:${colour}`}
+        className={`group font-bold ${colour} hover:${colour}`}
       >
         {/* your normal brackets */}
         <span className="opacity-50">[</span>
           {label}
         <span className="opacity-50">]</span>
-
-        {/* the URL, hidden by default (opacity-0), shown on hover (opacity-50) */}
         <span className="opacity-0 group-hover:opacity-25 ml-2">&#40;</span>
-        <span className="opacity-0 group-hover:opacity-50">
+        <span className="wavy-underline underline-offset-3 opacity-0 group-hover:opacity-50">
         {href}
         </span>
         <span className="opacity-0 group-hover:opacity-15">&#41;</span>
