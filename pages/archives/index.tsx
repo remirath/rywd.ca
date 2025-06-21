@@ -21,7 +21,7 @@ export default function Home() {
       <header className="sticky w-full max-w-xl py-12 font-medium">
         <div className="w-full max-w-xl px-4 py-12 font-medium">
           <Link
-            href="/projects"
+            href="/"
             className="group text-lg md:text-xl font-medium underline decoration-2 underline-offset-3 hover:text-stone-500"
           >
             rywd.ca
