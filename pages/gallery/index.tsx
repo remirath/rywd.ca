@@ -48,9 +48,9 @@ export default function Home() {
 function Prompt({ command }: { command: string }) {
    return (
      <p>
-       <strong className="text-green-800">&lt;ryan</strong>
+       <strong className="text-green-800">ryan</strong>
        @
-       <strong className="text-green-800">rywd.ca&gt;</strong>
+       <strong className="text-green-800">rywd.ca</strong>
        :~/gallery
        <span className="text-yellow-600">$</span> 
        <strong className="inline font-normal">{command}</strong>

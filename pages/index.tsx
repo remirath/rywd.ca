@@ -44,21 +44,15 @@ export default function Home() {
       <article className="w-full max-w-xl px-4 py-12 md:py-24 font-normal">
         {/* whoami */}
         <Prompt command=" whoami" />
-        <Line label="User" value="Ryan" icon="👤" />
-        <Line
-          label="About"
-          value={
-            <>
-              An undergrad electrical engineering student from Newmarket, Ontario
-            </>
-          }
-          icon="📰"
-        />
-        <Line
-          label="Stack(s)"
-          value="JavaScript | TypeScript | Next.js | React | TailwindCSS | CSS | Python | Django "
-          icon="📚"
-        />
+        <p>
+          <span className='font-semibold text-red-500'>👤 User:</span> Ryan
+        </p>
+        <p>
+          <span className='font-semibold text-green-600'>📰 About:</span> An undergrad electrical engineering student from Newmarket, Ontario
+        </p>
+        <p>
+          <span className='font-semibold text-blue-600'>📚 Stacks:</span> JavaScript | TypeScript | Next.js | React | TailwindCSS | CSS | Python
+        </p>
 
         {/* links */}
         <Gap />
@@ -71,7 +65,7 @@ export default function Home() {
 
         {/* recent-writes */}
         <Gap />
-        <Prompt command=" ls -a writings/" />
+        <Prompt command=" ls -a archives/" />
         <ListItem label="" sub="sub" />
         <ListItem label="" sub="sub" />
 
@@ -79,9 +73,9 @@ export default function Home() {
         <Gap />
         <Prompt command=" cat socials.md" />
         <ul className="pl-4 list-disc">
-          <Social href="https://github.com/remirath" label="GitHub" colour="text-zinc-800"/>
-          <Social href="https://discord.gg/htjwwnq" label="Discord" colour="text-blue-600"/>
-          <Social href="https://www.linkedin.com/in/ryan-wood-59410a332/" label="LinkedIn" colour="text-sky-600"/>
+          <Social href="https://github.com/remirath" label="GitHub" colour="text-zinc-800" icon="/images/github.svg"/>
+          <Social href="https://discord.gg/htjwwnq" label="Discord" colour="text-blue-600" icon="/images/discord.svg"/>
+          <Social href="https://www.linkedin.com/in/ryan-wood-59410a332/" label="LinkedIn" colour="text-sky-600" icon="/images/linkedin.svg"/>
         </ul>
       </article>
     </main>
@@ -99,24 +93,6 @@ function Prompt({ command }: { command: string }) {
       :~
       <span className="text-yellow-600">$</span> 
       <strong className="inline font-normal">{command}</strong>
-    </p>
-  );
-}
-
-function Line({ label, value, icon }: { label: string; value: React.ReactNode; icon?: string }) {
-  // Assign a different colour per specific label
-  const colour =
-    label === "User"
-      ? "text-red-500"
-      : label === "About"
-      ? "text-green-600"
-      : label.toLowerCase().includes("stack")
-      ? "text-blue-600"
-      : "text-purple-600";
-
-  return (
-    <p>
-      <span className={`${colour} font-semibold`}>{icon && `${icon} `}{label}:</span> {value}
     </p>
   );
 }
@@ -142,29 +118,31 @@ function ListItem({ label, sub }: { label: string; sub?: string }) {
 function Social({
   href,
   label,
-  colour,   // e.g. "text-zinc-800"
+  colour,
+  icon
 }: {
   href: string
   label: string
   colour: string
+  icon: string
 }) {
   return (
     <li
-      // make the bullet a bit larger & translucent, and inherit the text colour
-      className={`marker:text-xl marker:opacity-50 ${colour}`}
+      className={`marker:text-m marker:opacity-50 hover:list-['-'] ${colour}`}
     >
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        // turn this <a> into a "group" so its children can react to hover
-        className={`group font-bold ${colour} hover:${colour}`}
+        className={`group font-medium ${colour} hover:${colour}`}
       >
-        {/* your normal brackets */}
-        <span className="opacity-50">[</span>
-          {label}
+        <span className="opacity-50 pr-1">[</span>
+        <span className="inline-flex items-center align-middle">
+          <img src={`${icon}`} alt='icon' className='w-5 h-5'/>
+          <p className="pl-2 hover:underline">{label}</p>
+        </span>
         <span className="opacity-50">]</span>
-        <span className="opacity-0 group-hover:opacity-25 ml-2">&#40;</span>
+        <span className="opacity-0 group-hover:opacity-25 ml-3">&#40;</span>
         <span className="wavy-underline underline-offset-3 opacity-0 group-hover:opacity-50">
         {href}
         </span>
@@ -176,8 +154,3 @@ function Social({
 function Gap() {
   return <div className="h-18" />;
 }
-
-/* Utility class – slow spin */
-// Add in globals.css:
-// @keyframes spin-slow { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) } }
-// .animate-spin-slow { animation: spin-slow 12s linear infinite }
