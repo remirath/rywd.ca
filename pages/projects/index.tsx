@@ -12,7 +12,7 @@ const customFont = JetBrains_Mono({
     weight: 'variable',
 });
 
-export default function Projects() {
+export default function ProjectsHome() {
   return (
     <>
 
@@ -21,7 +21,7 @@ export default function Projects() {
       <meta name="description" content="All my personal work that's worth noting" />
     </Head>
 
-    <main className={`${customFont.className} relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-800 select-text flex flex-col items-center`}>
+    <main className={`${customFont.className} cursor-default relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-800 select-text flex flex-col items-center`}>
       {/* ===================== Header ===================== */}
       <header className="sticky w-full max-w-xl py-12 font-medium">
         <div className="w-full max-w-xl px-4 py-12 font-medium">
@@ -63,14 +63,6 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: 'Hockeytree',
-    description:
-      'An app to rank NHL teams based off performance using statistical techniques and machine learning.',
-    tags: ['Machine Learning', 'Analytics', 'NHL'],
-    image: '/images/hockeytree.png',
-    href: '/projects/hockeytree',
-  },
-  {
     title: 'DBR Laser Model',
     description:
       'MATLAB simulation software which models a 1D optical waveguide and DBR laser using grating patterns.',
@@ -86,12 +78,28 @@ const projects: Project[] = [
     image: '/images/carleton.png',
     href: '/projects/school',
   },
+  {
+    title: 'rywd.ca',
+    description:
+      'The project timeline for this websites source code.',
+    tags: ['Full Stack', 'Portfolio', 'Self-Hosting'],
+    image: '/images/web-logo.png',
+    href: '/projects/website',
+  },
+  {
+    title: 'Hockeytree',
+    description:
+      'An app to rank NHL teams based off performance using statistical techniques and machine learning.',
+    tags: ['Machine Learning', 'Analytics', 'NHL'],
+    image: '/images/hockeytree.png',
+    href: '/projects/hockeytree',
+  },
 ];
 
 /* ------------------------------------------------------- */
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="flex bg-yellow-50 rounded-lg overflow-hidden">
+    <div className="flex bg-yellow-50 rounded-lg">
       {/* Text area */}
       <div className="flex flex-col justify-between flex-1 min-w-0">
         <div>
@@ -103,19 +111,19 @@ function ProjectCard({ project }: { project: Project }) {
         </Link>
             </h2>
           <p className="font-normal text-zinc-700 mb-3">{project.description}</p>
+          <Tags tags={project.tags} />
         </div>
-        <Tags tags={project.tags} />
       
       </div>
 
       {/* Image preview */}
-      <div className="relative h-48 w-48 flex-shrink-0">
+      <div className="relative h-32 w-32 flex-shrink-0 mb-5">
         <Link href={project.href || '#'}>
           <Image
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover"/>
+          className="object-contain"/>
         </Link>
       </div>
     </div>
@@ -124,7 +132,7 @@ function ProjectCard({ project }: { project: Project }) {
 
 function Tags({ tags }: { tags: string[] }) {
   return (
-    <div className="flex flex-wrap gap-2 mb-24">
+    <div className="flex flex-wrap gap-2 mb-2">
       {tags.map((tag) => (
         <span
           key={tag}

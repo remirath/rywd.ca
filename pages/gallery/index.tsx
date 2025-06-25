@@ -9,7 +9,7 @@ const customFont = JetBrains_Mono({
     weight: 'variable',
 });
 
-export default function Home() {
+export default function GalleryHome() {
   return (
     <>
 
@@ -18,7 +18,7 @@ export default function Home() {
       <meta name="description" content="Cool pics" />
     </Head>
 
-    <main className={`${customFont.className} relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-800 select-text flex flex-col items-center`}>
+    <main className={`${customFont.className} cursor-default relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-800 select-text flex flex-col items-center`}>
       {/* ===================== Header ===================== */}
       <header className="sticky w-full max-w-xl py-12 font-medium">
         <div className="w-full max-w-xl px-4 py-12 font-medium">
@@ -38,7 +38,11 @@ export default function Home() {
       </header>
       <article className="w-full max-w-xl px-4 py-12 md:py-24 font-medium">
         <Prompt command=' ls'/>
-        <GalleryImage src='/images/animalscover.png' alt='Animals Full' caption="Pink Floyd's Animals (1977) extended album art"></GalleryImage>
+        <GalleryImage src='/images/elgin.jpg' alt='Elgin Street' caption="Elgin Street, Ottawa (June)" date="2025-06-02"/>
+        <GalleryImage src='/images/baloons.jpg' alt='Balloons' caption="hot air balloons (September)" date="2024-09-20"/>
+        <GalleryImage src='/images/bismarck.jpg' alt='Bismarck' caption="my Bismarck model ship" date="2025-06-24"/>
+        <GalleryImage src='/images/animalscover.png' alt='Animals Full' caption="Pink Floyd's Animals (1977) extended album art" date="2025-06-24"/>
+        <GalleryImage src='/images/lakesunset.jpg' alt='Lake Sunset' caption="sunset at cottage (June)" date="2024-06-05"/>
       </article>
       </main>
     </>
@@ -58,19 +62,22 @@ function Prompt({ command }: { command: string }) {
    );
 }
 
-function GalleryImage({ src, alt, caption }: { src: string; alt: string; caption: string;}) {
+function GalleryImage({ src, alt, caption, date }: { src: string; alt: string; caption: string; date: string; }) {
   return (
     <figure className="w-full">
-      <div className="relative w-full mt-4 h-60 sm:h-72 md:h-80 lg:h-96 rounded-lg overflow-hidden">
+      <div className="relative w-full mt-4 h-60 sm:h-72 md:h-80 lg:h-96 rounded-lg">
         <Image
           src={src}
           alt={alt}
           fill
-          className="object-cover"
+          className="object-contain"
         />
       </div>
-      <figcaption className="mt-1 text-right text-zinc-900">
+      <figcaption className="mt-0.5 text-right text-zinc-900">
         {caption}
+      </figcaption>
+      <figcaption className="text-right font-light text-stone-500">
+        {date}
       </figcaption>
     </figure>
   );

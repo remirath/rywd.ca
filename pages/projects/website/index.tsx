@@ -8,15 +8,15 @@ const customFont = JetBrains_Mono({
     weight: 'variable',
 });
 
-export default function HockeyTreeHome() {
+export default function rywdHome() {
   return (
     <>
 
     <Head>
-      <title>hockeytree</title>
+      <title>source</title>
     </Head>
 
-    <main className={`${customFont.className} relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-800 select-text flex flex-col items-center cursor-default`}>
+    <main className={`${customFont.className} cursor-default relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-800 select-text flex flex-col items-center`}>
       {/* ===================== Header ===================== */}
       <header className="sticky w-full max-w-xl py-12 font-medium">
         <div className="w-full max-w-xl px-4 py-12 font-medium">
@@ -37,7 +37,6 @@ export default function HockeyTreeHome() {
       <article className='w-full max-w-xl px-4 py-12 md:py-24 font-medium'>
         <Prompt command=' ls -a'/>
       </article>
-
       </main>
     </>
   );
@@ -49,7 +48,7 @@ function Prompt({ command }: { command: string }) {
       <strong className="text-green-800">ryan</strong>
       @
       <strong className="text-green-800">rywd.ca</strong>
-      :~/projects/hockeytree
+      :~/projects/website
       <span className="text-yellow-600">$</span> 
       <strong className="inline font-normal">{command}</strong>
     </p>

@@ -8,7 +8,7 @@ const customFont = JetBrains_Mono({
     weight: 'variable',
 });
 
-export default function Home() {
+export default function SchoolHome() {
   return (
     <>
 
@@ -16,7 +16,7 @@ export default function Home() {
       <title>school</title>
     </Head>
 
-    <main className={`${customFont.className} relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-800 select-text flex flex-col items-center`}>
+    <main className={`${customFont.className} cursor-default relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-800 select-text flex flex-col items-center`}>
       {/* ===================== Header ===================== */}
       <header className="sticky w-full max-w-xl py-12 font-medium">
         <div className="w-full max-w-xl px-4 py-12 font-medium">
@@ -34,7 +34,56 @@ export default function Home() {
           </Link>
         </div>
       </header>
+      <article className='w-full max-w-xl px-4 py-12 md:py-24 font-medium'>
+        <Prompt command=' ls -a'/>
+        <ul className="w-full max-w-xl mx-auto pt-3">
+            {items.map((item, index) => renderListItem(item.info, item.date, item.href, item.pin, index))}
+          </ul>
+      </article>
+
+
       </main>
     </>
   );
 }
+
+function Prompt({ command }: { command: string }) {
+  return (
+    <p>
+      <strong className="text-green-800">ryan</strong>
+      @
+      <strong className="text-green-800">rywd.ca</strong>
+      :~/projects/school
+      <span className="text-yellow-600">$</span> 
+      <strong className="inline font-normal">{command}</strong>
+    </p>
+  );
+}
+
+  const items = [
+    { info: "Resume.pdf", date: "2025-06-21", href: "/docs/resume.pdf", pin: true },
+    { info: "Home Lab", date: "2025-06-24", href: "/archives/homelab", pin: true },
+    { info: "Fixed SSL config", date: "2025-06-20", href: '', pin:false },
+    { info: "Launched rywd.ca", date: "2025-06-15", href: '', pin:false },
+    { info: "", date: "yr-mm-dd", href: '', pin:false },
+  ];
+
+  // Reusable element renderer
+const renderListItem = (info: string, date: string, href: string, pin: boolean, index: number) => (
+  <li
+    key={index}
+      className={`flex justify-between px-1.5 py-1.5 ${
+        index % 2 === 0 ? "bg-stone-300" : "bg-yellow-50"
+      }`}
+  >
+    <span className="flex items-start">
+      {pin && <span className="pr-1.5">📌</span>}
+      {
+      href ? (<Link href={`${href}`} className='font-medium underline decoration-2 underline-offset-3 hover:text-stone-500'>
+        {info}
+      </Link>) : (<span className='font-medium cursor-default'>{info}</span>)
+      }
+    </span>
+    <span className="text-right text-zinc-500 cursor-default">{date}</span>
+  </li>
+ );

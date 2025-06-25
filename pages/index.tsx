@@ -21,7 +21,7 @@ export default function Home() {
       <meta name="description" content="Personal homepage of Ryan Wood – Electrical Engineering student." />
     </Head> 
 
-    <main className={`${customFont.className} relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-900 select-text flex flex-col items-center`}>
+    <main className={`${customFont.className} relative min-h-screen bg-yellow-50 font-medium text-[14px] leading-tight text-zinc-900 select-text flex flex-col items-center cursor-default`}>
       {/* decorative star in the corner */}
 
       {/* ===================== Top link ===================== */}
@@ -57,7 +57,7 @@ export default function Home() {
         {/* links */}
         <Gap />
         <Prompt command=" ls links/" />
-        <div className="font-semibold grid grid-cols-3 gap-20 mt-1">
+        <div className="font-semibold grid grid-cols-3 gap-20">
           <DirLink href="/gallery" label="gallery/" />
           <DirLink href="/projects" label="projects/" />
           <DirLink href="/archives" label="archives/" />
@@ -86,7 +86,7 @@ export default function Home() {
 /* ------------------------------------------------------- */
 function Prompt({ command }: { command: string }) {
   return (
-    <p>
+    <p className='pb-1'>
       <strong className="text-green-800">ryan</strong>
       @
       <strong className="text-green-800">rywd.ca</strong>
@@ -128,7 +128,7 @@ function Social({
 }) {
   return (
     <li
-      className={`marker:text-m marker:opacity-50 hover:list-['-'] ${colour}`}
+      className={`list-disc list-inside hover:list-['-'] ${colour}`}
     >
       <a
         href={href}
@@ -136,10 +136,10 @@ function Social({
         rel="noopener noreferrer"
         className={`group font-medium ${colour} hover:${colour}`}
       >
-        <span className="opacity-50 pr-1">[</span>
+        <span className="opacity-50 pr-1 group-hover:pl-[5px]">[</span>
         <span className="inline-flex items-center align-middle">
           <img src={`${icon}`} alt='icon' className='w-5 h-5'/>
-          <p className="pl-2 hover:underline">{label}</p>
+          <p className="pl-1.5 group-hover:underline">{label}</p>
         </span>
         <span className="opacity-50">]</span>
         <span className="opacity-0 group-hover:opacity-25 ml-3">&#40;</span>
@@ -152,5 +152,5 @@ function Social({
   )
 }
 function Gap() {
-  return <div className="h-18" />;
+  return <div className="h-16" />;
 }
